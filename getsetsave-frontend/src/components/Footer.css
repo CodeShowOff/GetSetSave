@@ -1,0 +1,31 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-top: auto;
+  border-top: 1px solid #ccc;
+  font-size: 0.9rem;
+  background-color: #f8f8f8;
+}
+
+.footer.dark {
+  background-color: #1e1e1e;
+  color: #ccc;
+}
+
+.logo {
+  height: 32px;
+  margin-right: 0.5rem;
+}
+
+.footer a {
+  margin: 0 0.5rem;
+  font-size: 1.4rem;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #0073e6; /* nice blue glow on hover */
+}

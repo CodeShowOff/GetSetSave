@@ -1,0 +1,26 @@
+.video-preview {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: var(--card-bg, #f1f1f1);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.video-thumbnail img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.download-list {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.format-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
