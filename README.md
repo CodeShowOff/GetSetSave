@@ -102,5 +102,5 @@ getsetsave/
 
 ## 🐱‍👤 Author
 
-Made by **ChatGPT** — implemented by Shubham ❤️
+Made by **ChatGPT** — implemented by Shubham.
 
