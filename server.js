@@ -51,6 +51,30 @@ try {
 }
 
 // -----------------------------------------------------------------------------
+// Optional: Cookie support to bypass bot checks (e.g., YouTube) on hosted envs
+// Provide cookies via env var YT_DLP_COOKIES_B64 (base64 of a cookies.txt file)
+// -----------------------------------------------------------------------------
+let COOKIES_FILE = null;
+try {
+  const b64 = process.env.YT_DLP_COOKIES_B64;
+  if (b64) {
+    const decoded = Buffer.from(b64, "base64").toString("utf8");
+    const tmpDir = path.join(__dirname, "tmp");
+    if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
+    const cookiesPath = path.join(tmpDir, "cookies.txt");
+    fs.writeFileSync(cookiesPath, decoded, { encoding: "utf8" });
+    COOKIES_FILE = cookiesPath;
+    console.log("Loaded cookies from YT_DLP_COOKIES_B64 into", cookiesPath);
+  }
+} catch (e) {
+  console.warn("Failed to load cookies from YT_DLP_COOKIES_B64:", e && e.message ? e.message : e);
+}
+
+// A reasonable desktop user-agent can reduce bot checks
+const DEFAULT_UA = process.env.YT_DLP_UA ||
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
+
+// -----------------------------------------------------------------------------
 // Middlewares
 // -----------------------------------------------------------------------------
 app.use(helmet());
@@ -130,13 +154,20 @@ app.post("/api/info", async (req, res) => {
   try {
     const YTDLP_TIMEOUT_MS = Number(process.env.YTDLP_TIMEOUT_MS) || 25_000;
 
-    const infoPromise = ytdl(url, {
+    const ytdlpOptions = {
       dumpSingleJson: true,
       noPlaylist: true,
       noWarnings: true,
       preferFreeFormats: true,
-      // You can add more options here if desired
-    });
+      // Request headers
+      userAgent: DEFAULT_UA,
+    };
+
+    if (COOKIES_FILE) {
+      ytdlpOptions.cookies = COOKIES_FILE; // maps to --cookies <file>
+    }
+
+    const infoPromise = ytdl(url, ytdlpOptions);
 
     const timeoutPromise = new Promise((_, reject) =>
       setTimeout(() => reject(new Error("Timeout while fetching video info")), YTDLP_TIMEOUT_MS)
