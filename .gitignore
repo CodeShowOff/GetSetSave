@@ -1,4 +1,6 @@
 node_modules/
+frontend/node_modules
+frontend/build/
 build/
 dist/
 .env
@@ -9,3 +11,4 @@ __pycache__/
 *.sqlite3
 .env.*
 .vscode/
+bin/

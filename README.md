@@ -104,3 +104,42 @@ getsetsave/
 
 Made by **ChatGPT** — implemented by Shubham.
 
+
+---
+---
+---
+
+# GetSetSave
+
+Single-repo app: Express backend serves React frontend.
+
+## Run (development)
+1. Install server deps:
+   npm install
+
+2. Install frontend deps:
+   cd getsetsave-frontend
+   npm install
+   npm start   # runs React dev server (http://localhost:3000)
+
+3. Run server with nodemon:
+   cd ..
+   npm run start:dev
+
+During dev the React app proxies /api to http://localhost:5000 (see "proxy" in frontend package.json).
+
+## Run (single host)
+1. Build frontend:
+   cd getsetsave-frontend
+   npm install
+   npm run build
+
+2. Start server:
+   cd ..
+   npm install
+   npm start
+   # open http://localhost:5000
+
+## Notes
+- The backend uses youtube-dl-exec (yt-dlp). If you see `spawn ENOENT` or similar, install `yt-dlp` system-wide or allow bundled binary execution.
+- You are responsible for using the app only for authorized content.

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: getsetsave
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run install-frontend && npm run build-frontend
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: NODE_ENV
+        value: production
+      # Optionally pin your yt-dlp path; by default server picks local bin/ or PATH
+      # - key: YT_DLP_BIN
+      #   value: /usr/bin/yt-dlp
+    autoDeploy: true
+
+

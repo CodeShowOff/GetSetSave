@@ -5,6 +5,7 @@
   background: var(--card-bg, #f1f1f1);
   border-radius: 12px;
   text-align: center;
+  border: 1px solid #ddd;
 }
 
 .video-thumbnail img {
@@ -23,4 +24,6 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  gap: 12px;
+  align-items: center;
 }
